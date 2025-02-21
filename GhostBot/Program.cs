@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DSharpPlus.EventArgs;
+using GhostBot.Commands;
 
 namespace GhostBot
 {
@@ -34,12 +35,14 @@ namespace GhostBot
 
             var commandsConfig = new CommandsNextConfiguration()
             {
-                PrefixResolver = new string[] {jsonReader.prefix},
+                StringPrefixes = new[] {jsonReader.prefix},
                 EnableMentionPrefix = true,
                 EnableDms = true,
                 EnableDefaultHelp = false
             };
             Commands = Client.UseCommandsNext(commandsConfig);
+
+            Commands.RegisterCommands<Helper>();
             
             await Client.ConnectAsync();
             await Task.Delay(-1);
