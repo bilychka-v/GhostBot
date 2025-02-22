@@ -1,5 +1,8 @@
+using System.Drawing;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
+using DSharpPlus.Entities;
+
 namespace GhostBot.Commands;
 
 public class Helper : BaseCommandModule
@@ -22,5 +25,17 @@ public class Helper : BaseCommandModule
     {
         int result = number1 - number2;
         await ctx.Channel.SendMessageAsync(result.ToString());
+    }
+
+    [Command("embed")]
+    public async Task EmbedCommand(CommandContext ctx)
+    {
+        var message = new DiscordEmbedBuilder
+        {
+            Title = "Ghost Bot",
+            Description = $"Made by {ctx.User.Username}!",
+            Color = DiscordColor.Azure
+        };
+        await ctx.Channel.SendMessageAsync(embed: message);
     }
 }

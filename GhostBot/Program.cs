@@ -4,7 +4,6 @@ using GhostBot.config;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using DSharpPlus.EventArgs;
 using GhostBot.Commands;
 
@@ -21,7 +20,6 @@ namespace GhostBot
             await jsonReader.ReadJson();
             
             Console.WriteLine($"Token: {jsonReader.token}");
-
 
             var discordConfig = new DiscordConfiguration()
             {
@@ -42,16 +40,15 @@ namespace GhostBot
             };
             Commands = Client.UseCommandsNext(commandsConfig);
 
-            Commands.RegisterCommands<Helper>();
-            
+            Commands.RegisterCommands<TaskCommands>(); // ✅ Додаємо команди для To-Do
+
             await Client.ConnectAsync();
             await Task.Delay(-1);
         }
 
-        private static Task Client_Ready(DiscordClient sender, DSharpPlus.EventArgs.ReadyEventArgs args)
+        private static Task Client_Ready(DiscordClient sender, ReadyEventArgs args)
         {
             return Task.CompletedTask;
         }
     }
 }
-
